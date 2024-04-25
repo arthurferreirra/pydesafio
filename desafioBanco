@@ -1,0 +1,63 @@
+menu = """
+
+[d] Depositar
+[s] Sacar
+[e] Extrato
+[t] Sair
+
+--> """
+
+saldo = 0
+limite = 500
+extrato = ""
+numero_saques = 0
+LIMITE_SAQUES = 3
+
+while True:
+
+    opcao = input(menu)
+
+    ##Operação de depositar
+    if opcao == "d":
+        valor_para_depositar = float(input("Digite o valor para depositar: "))
+
+        if valor_para_depositar > 0:
+            saldo += valor_para_depositar
+            extrato += f"Depósito: R$ {valor_para_depositar:.2f}\n" ##adiciona no historico de extrato, uma variavel string
+
+        else:
+            print("Operação falhou! O valor informado é inválido.")
+
+    ##operação de sacar##
+    elif opcao == "s":
+        valor_para_saque = float(input("Informe o valor do saque: "))
+
+
+        if (valor_para_saque > saldo):
+            print("Operação falhou! Você não tem saldo suficiente para sacar.")
+
+        elif (valor_para_saque > limite):
+            print("Operação falhou! O valor do saque passou do limite disponivel.")
+
+        elif (numero_saques >= LIMITE_SAQUES):
+            print("Operação falhou! Número máximo de saques excedido.")
+
+        elif valor_para_saque > 0:
+            saldo -= valor_para_saque
+            extrato += f"Saque: R$ {valor_para_saque:.2f}\n"
+            numero_saques += 1
+
+        else:
+            print("Operação falhou! O valor informado é inválido.")
+
+    elif opcao == "e":
+        print("\n================ EXTRATO ================")
+        print(extrato) ##exibir o historico de extrato
+        print(f"\nSaldo: R$ {saldo:.2f}")
+        print("==========================================")
+
+    elif opcao == "q":
+        break
+
+    else:
+        print("Operação inválida, por favor selecione novamente a operação desejada.")
